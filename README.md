@@ -18,6 +18,7 @@ This project has been tested with the following environment:
 - `bcbio-gff 0.7.1`
 - `openpyxl 3.1.5`
 
+
 ## Installation
 ### Install via Bioconda (Recommended)
 You can install a-liner directly from Bioconda:
@@ -46,6 +47,7 @@ Required dependencies:
 ```
 conda install python=3.13.5 matplotlib=3.10.3 numpy pandas biopython bcbio-gff openpyxl 
 ```
+
 
 ## Usage
 
@@ -85,7 +87,7 @@ Run `show-coords` with `-H` to generate a headerless coordinate table.
 nucmer --prefix output_nucmer seq1.fa seq2.fa
 show-coords -H output_nucmer.delta > output_nucmer.mcoords
 ```
-
+  
 
 ### Annotation Files
 a-liner supports several annotation formats.
@@ -105,7 +107,7 @@ If your annotation file includes an additional column appended to the right of t
 This applies to both:  
 - plain GFF files with an extra color column
 - Excel files derived from such GFF files
-
+  
 
 ### Highlight Regions File
 To highlight specific regions, prepare a tab-delimited file and use either the `--highlight` or `--sp_highlight` option.  
@@ -123,10 +125,22 @@ No header or index is required.
 ```
 plasmid1    5000    15000    #FF9999
 ```
-
+  
 
 ### Scatter Plot Data File
+To add scatter plots, provide a tab-delimited file using the `--scatter` option.  
+Each row represents one data point.
+- **Column 1:** Sequence ID
+- **Column 2:** Position (1-based)
+- **Column 3:** Value (e.g., SNP density, read depth, GC content)
 
+Additional notes:
+- Multiple scatter plot files can be specified at once by listing them after the `--scatter` option.
+- Scatter plots are drawn above the corresponding sequence track.
+- The y-axis scale is shared across all sequences. The minimum and maximum values can be controlled using `--scatter_min` and `--scatter_max`.
+- Horizontal reference lines can be added at specified values using the `--scatter_ylines` option.
+- Rows do not need to be sorted.
+  
 
 ## Citation
 Please cite the tool as follows until the formal publication becomes available:
