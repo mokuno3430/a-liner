@@ -95,7 +95,7 @@ Supported formats:
 - **GFF3 with embedded FASTA:** GFF3 files that include an embedded FASTA section are also supported and can be loaded using the `--gff3` option.
 - **Excel files converted from GFF:** Excel files created from a GFF file.  
   (e.g., by manually importing or editing the annotation table) can be loaded with the `--gff_xlsx` option.
-- **GenBank flat files:** Load GenBank annotations using the --gb option.  
+- **GenBank flat files:** Load GenBank annotations using the `--gb` option.  
   (Color information in GenBank files is NOT currently supported.)
 
 **Coloring features**  
