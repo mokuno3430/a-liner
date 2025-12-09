@@ -86,6 +86,7 @@ nucmer --prefix output_nucmer seq1.fa seq2.fa
 show-coords -H output_nucmer.delta > output_nucmer.mcoords
 ```
 
+
 ### Annotation Files
 a-liner supports several annotation formats.
 GFF3 is the recommended format, but genbank format is also available.
@@ -123,7 +124,9 @@ No header or index is required.
 plasmid1    5000    15000    #FF9999
 ```
 
+
 ### Scatter Plot Data File
+
 
 ## Citation
 Please cite the tool as follows until the formal publication becomes available:
