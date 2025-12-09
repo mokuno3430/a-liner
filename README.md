@@ -2,11 +2,11 @@
 This repository contains the `a-liner` script and sample data.
 
 ## Contents
-- [Requirements](#Requirements)
-- [Installation](#Installation)
-- [Sample Data](#Sample)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Sample Data](##sample-data)
 - [tips](#tips)
-- [Citation](#Citation)
+- [Citation](#citation)
 
 ## Requirements
 This project has been tested with the following environment:
