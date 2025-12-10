@@ -4,6 +4,7 @@ This repository contains the `a-liner` script and sample data.
 ## Contents
 - [Requirements](#requirements)
 - [Installation](#installation)
+- [Options](#options)
 - [Sample Data](#sample-data)
 - [Prepare input files](#prepare-input-files)
 - [Citation](#citation)
@@ -50,6 +51,138 @@ conda install python=3.13.5 matplotlib=3.10.3 numpy pandas biopython bcbio-gff o
 
 
 ## Usage
+
+## Options
+### General options
+```
+  -h, --help            show this help message and exit
+  -i, --input [file ...]
+                        File(s): sequence info for display.
+                        Format: tab-delimited with columns [seq_ID, start(1-based), end(1-based), strand(+ or -), display name]
+                        Sequences are arranged from bottom to top in the figure.
+  --xlsx Excel          File: seq_info.xlsx
+  --xlsx_sheet str      sheet name of seq_info.xlsx
+  --out str             Optional: prefix of PDF file (default: out).
+  --figure_size width height
+                        Optional: figure size as [width height](inch).
+                        If width=0 → set to 6. If height=0 → auto(default: [6, 0]).
+  -v, --version         show program's version number and exit
+```
+
+### Sequence layout options
+```
+  --seq_layout {left,center,right}
+                        Optional: sequence layout (default: left).
+  --margin_bw_seqs float
+                        Optional: vertical margin between adjacent sequences. Default -1 means auto-adjust.
+  --xlim_max int        Optional: maximum x-axis coordinate for plotting (bp). Default -1 means auto-adjust.
+  --left_margin float   Optional: left side margin of the figure.
+                        Default -1 means auto-adjust. range 0.05-0.50.
+```
+
+### Sequence drawing options
+```
+  --seq_color str       Optional: color of sequences (default grey).
+  --seq_font_size float Optional: font size of sequence names (pt). Default 6.
+  --seq_thickness float Optional: thickness of sequence lines (pt) (default: 1.5).
+```
+
+### Sequence scale options
+```
+  --scale {legend,tick,both}
+                        Optional: how to display scale.
+                        "legend" = show scale bar, "tick" = show axis ticks on sequences,
+                        "both" = show both (default: legend).
+  --tick_width int      Optional: scale width of axis (bp) (default -1 means auto).
+  --tick_font_size float
+                        Optional: font size of ticks (pt) (default: 3).
+```
+
+### Sequence alignment files
+```
+  -a, --alignment [file ...]
+                        File(s): custom alignment data.
+                        Format: tab-delimited with columns [seq_ID1, start1, end1, seq_ID2, start2, end2, identity(%)].
+  --blastn [file ...]   File(s): blastn output.
+                        Example: blastn -db ref.fa -query query.fa -out blastn.txt -outfmt 6
+  --lastz [file ...]    File(s): lastz output.
+                        Example: lastz ref.fa query.fa --format=general --output=lastz.txt
+  --mummer [file ...]   File(s): MUMmer show-coords output.
+                        Example: show-coords -H out.delta > show-coords.tsv
+  --minimap2 [file ...]
+                        File(s): minimap2 PAF output.
+                        Example: minimap2 -c ref.fa query.fa > out.paf
+```
+
+### Sequence alignment options
+```
+  --min_identity int    Optional: minimum sequence identity (%).
+                        Alignments below this threshold will be ignored (default: 70).
+  --min_alignment_len int
+                        Optional: minimum alignment length (bp).
+                        Alignments shorter than this will be ignored (default: 0).
+  --alignment_alpha float
+                        Optional: transparency (alpha) of alignment coloring, range 0–1
+                        (0 = fully transparent, 1 = opaque) (default: 0.5).
+  --colormap {0,1,2,3,4,5}
+                        Optional: colormap for sequence identity.
+                        0 = bone_r, 1 = hot_r, 2 = BuPu, 3 = YlOrRd, 4 = YlGnBu, 5 = rainbow (original) (default: 5).
+  --include_nonadjacent Include alignments between non-adjacent sequences (default: only adjacent).
+```
+
+### Gene annotation files
+```
+  --gff3 [gff3 ...]     File(s): gene annotation in GFF format.
+  --gff_xlsx [Excel ...]
+                        File(s): GFF format in Excel files
+  --gb [genbank ...]    File(s): genbank format.
+```
+
+### Gene drawing options
+```
+  --feature [str ...]   Optional: feature.
+  --gene_thickness float
+                        Optional: relative thickness of gene arrows compared to seq_thickness (default: 3).
+  --gene_font_size float
+                        Optional: font size of gene names (pt) (default: 3).
+  --gene_font_rotation float
+                        Optional: rotation angle of gene names (degrees) (default: 75).
+  --gene_color str      Optional: fill color of gene arrows (default: black).
+  --gene_edge_color str
+                        Optional: edge (outline) color of gene arrows (default: None) (no outline).
+```
+
+### Highlight options
+```
+  --highlight [file ...]
+                        File(s): highlight regions.
+                        Format: tab-delimited with columns [seq_ID, start(1-based), end(1-based), color]
+  --h_alpha float       Optional: transparency of highlights (0=transparent, 1=opaque) (default: 0.3).
+  --h_thickness float   Optional: relative thickness of highlights compared to sequence thickness (default: 3.5).
+```
+
+### Scatter plot options
+```
+  --scatter [file ...]  File(s): scatterplot data.
+                        Format: tab-delimited with columns [seq_ID, position(1-based), value]
+  --marker_color str    Optional: marker color (default: deeppink).
+  --marker_size float   Optional: marker size (default: 3).
+  --marker_style str    Optional: marker style.
+                        Valid choices: *, ,, ., 8, <, >, D, H, P, X, ^, d, h, o, p, s, v (default: .).
+  --scatter_space float
+                        Optional: relative height of scatterplot compared to alignment space (default: 0.8).
+                        For example, 0.8 means 80% of the alignment height.
+  --scatter_min float   Optional: minimum value of y-axis (default: 0).
+  --scatter_max float   Optional: maximum value of y-axis (default: 4).
+  --scatter_ylines [float ...]
+                        Optional: add horizontal reference lines at the given y values (list of floats).
+  --background_color str
+                        Optional: background color of scatter plot (default: whitesmoke).
+  --sp_highlight [file ...]
+                        File(s): highlight regions for scatter plot.
+                        Format: tab-delimited with columns [seq_ID, start(1-based), end(1-based), color]
+  --sp_h_alpha float    Optional: transparency of highlights for scatter plot(default: 0.3).
+```
 
 
 ## Sample Data
