@@ -4,8 +4,8 @@ This repository contains the `a-liner` script and sample data.
 ## Contents
 - [Requirements](#requirements)
 - [Installation](#installation)
-- [Options](#options)
 - [Sample Data](#sample-data)
+- [Options](#options)
 - [Prepare input files](#prepare-input-files)
 - [Citation](#citation)
 
@@ -49,8 +49,7 @@ Required dependencies:
 conda install python=3.13.5 matplotlib=3.10.3 numpy pandas biopython bcbio-gff openpyxl 
 ```
 
-
-## Usage
+## Sample Data
 
 ## Options
 ### General options
@@ -183,10 +182,6 @@ conda install python=3.13.5 matplotlib=3.10.3 numpy pandas biopython bcbio-gff o
                         Format: tab-delimited with columns [seq_ID, start(1-based), end(1-based), color]
   --sp_h_alpha float    Optional: transparency of highlights for scatter plot(default: 0.3).
 ```
-
-
-## Sample Data
-
 
 ## Prepare input files
 ### Sequence Configuration Files
