@@ -137,11 +137,13 @@ conda install python=3.13.5 matplotlib=3.10.3 numpy pandas biopython bcbio-gff o
   --gb [genbank ...]    File(s): genbank format.
 ```
 
-### Gene drawing options
+### Gene / feature drawing options
 ```
-  --feature [str ...]   Optional: feature.
+  --feature [str ...]   Optional: GFF/GenBank feature types to draw (space-separated)(default: gene).
   --gene_thickness float
                         Optional: relative thickness of gene arrows compared to seq_thickness (default: 3).
+  --gene_label_attr str
+                        Optional: attribute key used for feature labels (default: Name).
   --gene_font_size float
                         Optional: font size of gene names (pt) (default: 3).
   --gene_font_rotation float
