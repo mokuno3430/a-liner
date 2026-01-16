@@ -21,28 +21,25 @@ This project has been tested with the following environment:
 
 
 ## Installation
-### Install via Bioconda (Recommended)
-You can install a-liner directly from Bioconda:
+### Install via pip
+```
+pip install a-liner
+```
+This installs the `a-liner` command and all required dependencies.
 
+### Install via Bioconda
 ```
 conda install -c bioconda a-liner
 ```
 > Note: If you haven't configured Bioconda before, follow the instructions [here](https://bioconda.github.io/) to set up the necessary channels.
 
-### Optional: Create a dedicated conda environment
+### Install from source (development / GitHub)
 ```
-conda create -n a-liner-env a-liner
-conda activate a-liner-env
-conda install -c bioconda a-liner
-```
-
-### Install manually from source (alternative method)
-If you prefer not to use Bioconda:
-```
-git clone https://github.com/mokuno3430/a-liner.git
+git clone https://github.com/yourname/a-liner.git
 cd a-liner
-chmod u+x a-liner
+pip install -e .
 ```
+This installs `a-liner` in editable mode, allowing you to modify the source code while using the command-line interface.
 
 Required dependencies:
 ```
