@@ -21,12 +21,6 @@ This project has been tested with the following environment:
 
 
 ## Installation
-### Install via pip
-```
-pip install a-liner
-```
-This installs the `a-liner` command and all required dependencies.
-
 ### Install via Bioconda
 ```
 conda install -c bioconda a-liner
