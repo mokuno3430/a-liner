@@ -37,7 +37,7 @@ This installs `a-liner` in editable mode, allowing you to modify the source code
 
 Required dependencies:
 ```
-conda install python=3.13.5 matplotlib=3.10.3 numpy pandas biopython bcbio-gff openpyxl 
+conda install "python>=3.8" matplotlib numpy pandas "biopython>=1.80" bcbio-gff openpyxl
 ```
 
 ## Sample Data
