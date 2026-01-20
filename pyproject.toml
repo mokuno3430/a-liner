@@ -1,0 +1,23 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "a-liner"
+version = "1.0.0"
+description = "Flexible linear alignment visualizer"
+readme = "README.md"
+requires-python = ">=3.8"
+license = { file = "LICENSE" }
+
+dependencies = [
+  "matplotlib",
+  "pandas",
+  "biopython",
+  "numpy",
+  "openpyxl",
+  "bcbio-gff" 
+]
+
+[project.scripts]
+a-liner = "a_liner.cli:main"
