@@ -21,3 +21,6 @@ dependencies = [
 
 [project.scripts]
 a-liner = "a_liner.cli:main"
+
+[tool.setuptools]
+packages = ["a_liner"]
