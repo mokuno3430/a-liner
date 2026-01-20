@@ -29,7 +29,7 @@ conda install -c bioconda a-liner
 
 ### Install from source (development / GitHub)
 ```
-git clone https://github.com/yourname/a-liner.git
+git clone https://github.com/mokuno3430/a-liner.git
 cd a-liner
 pip install -e .
 ```
