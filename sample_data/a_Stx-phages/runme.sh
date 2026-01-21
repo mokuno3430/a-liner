@@ -1,6 +1,6 @@
 #!/bin/sh
 
-prefix=E.coli_cladeI_Stx2a-phage
+prefix=Stx-phage_loci
 a-liner --xlsx seq_info.xlsx \
         --blastn blastn_outfmt6.txt \
         --seq_color black \
