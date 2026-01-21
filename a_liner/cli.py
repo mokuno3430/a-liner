@@ -6,6 +6,8 @@ from matplotlib.backends.backend_pdf import PdfPages
 from . import alignment, common, genes, scatterplot, highlight
 from . import seqs as scf
 
+matplotlib.rcParams['pdf.fonttype'] = 42
+matplotlib.rcParams['ps.fonttype'] = 42
 
 def func_set_axes( ax, size ):
     ##set data range
