@@ -50,12 +50,12 @@ def plot_highlight( seqs, ax, size, fn, alpha, thickness, n ):
                     print(f"[ERROR] Line {lineno}: start or end is not an integer: start='{start_pos}', end='{end_pos}'", file=sys.stderr)
                     sys.exit(1)
 
-                color1 = common.Color( color, alpha )
+                color1 = common.Color( color, alpha )                
                 if start_pos < end_pos :
                     h_lists = detect_index_for_highlights( seqid, start_pos, end_pos, seqs )
                 else :
                     h_lists = detect_index_for_highlights( seqid, end_pos, start_pos, seqs )
-                if n == 1 :
+                if n == 0 :
                     for i, j, start, end in h_lists:
                         if size.histograms[i] == 0:
                             continue
@@ -65,14 +65,16 @@ def plot_highlight( seqs, ax, size, fn, alpha, thickness, n ):
                         flag = True
                 else :
                     for i, j, start, end in h_lists:
-                        height = seqs[i][j].height * thickness
-                        zorder = 3 if ( thickness == 1 or alpha == 1 ) else 1 
+                        height = seqs[i][j].height * thickness                        
+                        zorder = 3 if ( thickness == 1 or alpha == 1 ) else 1
                         aninstance = Highlight( seqs[i][j], start, end, height, color1, 0, zorder )
                         aninstance.plot( ax )
                         if size.histograms[i] != 0 :
                             height = seqs[i][j].height
+                            white_base = Highlight( seqs[i][j], start, end, height * 1.1, common.Color( "white", 1 ), size.histograms[i], 3 )
+                            # white_base.plot( ax )
                             aninstance = Highlight( seqs[i][j], start, end, height, color1, size.histograms[i], 3 )
-                            aninstance.plot( ax )
+                            # aninstance.plot( ax )
                         flag = True
 
     except (FileNotFoundError, ValueError) as e:

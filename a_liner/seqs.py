@@ -56,7 +56,7 @@ class Scaffold:
         ax.fill( x, y, color=self.color.color, lw=0, alpha=self.color.alpha, zorder=2 )
 
 
-def input_scaffold_tsv( scf_files, color, thickness ):
+def input_scaffold_separete_tsv( scf_files, color, thickness ):
     seqs = []
     for fn in scf_files:
         if not os.path.isfile( fn ):
@@ -108,13 +108,8 @@ def validate_n_column(df, xlsx):
     return pd.Series(n_values, index=df.index)
 
 
-def input_scaffold_xlsx( xlsx, sheet_name, color, thickness ):
-    try:
-        df = pd.read_excel(xlsx, sheet_name=sheet_name)
-    except ValueError:
-        print(f"Error: Sheet '{sheet_name}' not found in {xlsx}.", file=sys.stderr)
-        sys.exit(1)
-    
+def input_scaffold_integrated_file( xlsx, sheet_name, tsv, color, thickness ):
+    df  = _load_files( xlsx, sheet_name, tsv )
     df['n'] = validate_n_column(df, xlsx)
 
     max_value = df['n'].max()
@@ -139,6 +134,30 @@ def input_scaffold_xlsx( xlsx, sheet_name, color, thickness ):
     return seqs
 
 
+def _load_files(xlsx, sheet_name, tsv):
+    if xlsx :
+        if not os.path.exists( xlsx ):
+            print(f"Error: {xlsx} does not exist.", file=sys.stderr)
+            sys.exit( 1 )
+        if os.path.getsize( xlsx ) == 0 :
+            print(f"Error: {xlsx} is empty.", file=sys.stderr)
+        try:
+            df = pd.read_excel(xlsx, sheet_name=sheet_name)
+        except ValueError:
+            print(f"Error: Sheet '{sheet_name}' not found in {xlsx}.", file=sys.stderr)
+            sys.exit(1)
+        if df.dropna(how="all").empty:
+            print(f"Error: {xlsx} contains no valid data.", file=sys.stderr)
+            sys.exit(1)
+    else :
+        if not os.path.exists( tsv ):
+            print(f"Error: {tsv} does not exist.", file=sys.stderr)
+        if os.path.getsize( tsv ) == 0 :
+            print(f"Error: {tsv} is empty.", file=sys.stderr)
+        df = pd.read_csv(tsv, sep="\t")
+    return df
+
+    
 def plot_scaffolds( ax, seqs ):
     for i in range( len( seqs )):
         for j in range( len( seqs[i] )):
@@ -175,7 +194,7 @@ def plot_scaffold_names( ax, seqs, args, size ):
             else :
                 x = seqs[i][j].origin_x - 0.5 * args.seq_font_size * 0.55 * PT2INCH4X
                 if h_flag != 0 : 
-                    x -= 5 * args.tick_font_size * 0.55 * PT2INCH4X
+                    x -= 6 * args.tick_font_size * 0.55 * PT2INCH4X
                 tmp = (( len( seqs[i][j].name ) + 0.5 )* args.seq_font_size * 0.55 )/( 72 * 0.9 * size.figsize_inch[0] )
                 tmp2 = ( 0.9 - tmp )* seqs[i][j].origin_x / size.xlim_max
                 left_space += tmp - tmp2

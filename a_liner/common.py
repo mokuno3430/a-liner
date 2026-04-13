@@ -5,16 +5,17 @@ import matplotlib.colors as clr
 import os.path
 import sys
 
-def get_args():
+def get_args( argv=None ):
     valid_marker_list = get_marker_styles_list()
     parser = argparse.ArgumentParser( formatter_class=argparse.MetavarTypeHelpFormatter, allow_abbrev=False )
 
     group_i = parser.add_mutually_exclusive_group(required=True)
     group_i.add_argument( '-i', '--input', help='File(s): sequence info for display. '
-                          'Format: tab-delimited with columns [seq_ID, start(1-based), end(1-based), strand(+ or -), display name] '
-                          'Sequences are arranged from bottom to top in the figure.', type=str, nargs='*', metavar='file')
+                          'Format: tab-delimited with columns [n, seq_ID, start(1-based), end(1-based), strand(+ or -), display name] ',
+                          type=str, metavar='file')
     group_i.add_argument( '--xlsx', help='File: seq_info.xlsx', type=str, metavar='Excel')
     parser.add_argument( '--xlsx_sheet', help='sheet name of seq_info.xlsx', type=str, default=0 )
+    group_i.add_argument( '--sep_input', help=argparse.SUPPRESS, type=str, nargs='*', metavar='file')
     parser.add_argument( '--out', help='Optional: prefix of PDF file (default: %(default)s).', type=str, default='out' )
     parser.add_argument( '--figure_size', help='Optional: figure size as [width height](inch). If width=0 → set to 6. If height=0 → auto(default: %(default)s).',
                          type=validate_float, nargs=2, default=[6,0], metavar=( 'width', 'height') )
@@ -75,6 +76,13 @@ def get_args():
     gene_files.add_argument( '--gff_xlsx', help='File(s): GFF format in Excel files', type=str, nargs='*', default=[], metavar='Excel')
     gene_files.add_argument( '--gb', help='File(s): genbank format.', type=str, nargs='*', default=[], metavar='genbank')
 
+    feature_legend_group = parser.add_argument_group("Gene / feature legend options")
+    feature_legend_group.add_argument( '--feature_color_map', help='TSV file specifying feature labels, matching keywords, and colors. '
+                             'Features matching the keywords will be colored accordingly and shown in the legend.', type=str, metavar='FILE')
+    feature_legend_group.add_argument( '--feature_color_legend_font_size', help='Optional: font size of gene names (pt) (default: %(default)s).', type=float, default=5, metavar='float' )
+    feature_legend_group.add_argument( '--feature_color_legend_marker_size', help='Optional: marker size (default: %(default)s).', default=5, type=float, metavar='float')
+    feature_legend_group.add_argument( '--feature_color_legend_ncol', help='Optional: 0 means auto.', default=0, type=int, metavar='int')
+    
     gene_group = parser.add_argument_group("Gene / feature drawing options")
     gene_group.add_argument( '--feature', help="Optional: GFF/GenBank feature types to draw (space-separated)(default: gene).", type=str, nargs='*', default={ 'gene' } )
     gene_group.add_argument( '--gene_thickness', help='Optional: relative thickness of gene arrows compared to seq_thickness (default: %(default)s).',
@@ -83,7 +91,7 @@ def get_args():
                              type=str, default='gene', metavar='str' )
     gene_group.add_argument( '--gene_font_size', help='Optional: font size of gene names (pt) (default: %(default)s).', type=float, default=3, metavar='float' )
     gene_group.add_argument( '--gene_font_rotation', help='Optional: rotation angle of gene names (degrees) (default: %(default)s).', type=float, default=75, metavar='float')
-    gene_group.add_argument( '--gene_color', help='Optional: fill color of gene arrows (default: %(default)s).', type=validate_color, default='black', metavar='str')
+    gene_group.add_argument( '--gene_color', help='Optional: fill color of gene arrows (default: %(default)s).', type=validate_color, default='white', metavar='str')
     gene_group.add_argument( '--gene_edge_color', help='Optional: edge (outline) color of gene arrows (default: %(default)s) (no outline).', type=validate_color, default=None, metavar='str')
 
     highlight_group = parser.add_argument_group("Highlight options")
@@ -114,9 +122,11 @@ def get_args():
     
     # Version info
     parser.add_argument( '-v', '--version', action='version', version='%(prog)s v.1.0.0', default=True )
-    
-    args = parser.parse_args()
-    return ( args )
+
+    if argv is None:
+        return parser.parse_args()
+    else:
+        return parser.parse_args(argv)
 
 
 class Size:

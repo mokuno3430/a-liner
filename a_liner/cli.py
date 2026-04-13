@@ -6,9 +6,6 @@ from matplotlib.backends.backend_pdf import PdfPages
 from . import alignment, common, genes, scatterplot, highlight
 from . import seqs as scf
 
-matplotlib.rcParams['pdf.fonttype'] = 42
-matplotlib.rcParams['ps.fonttype'] = 42
-
 def func_set_axes( ax, size ):
     ##set data range
     ax.set_xlim(0, size.xlim_max)
@@ -25,18 +22,25 @@ def func_set_axes( ax, size ):
 def func_print_messages( ):
     print( ' '.join( sys.argv ))
 
-    
+
 def main():
     args = common.get_args()
+    run( args )
+
+
+def run( args ):
+    matplotlib.rcParams['pdf.fonttype'] = 42
+    matplotlib.rcParams['ps.fonttype'] = 42
+
     func_print_messages()
-    if args.input:
-        seqs = scf.input_scaffold_tsv( args.input, args.seq_color, args.seq_thickness )
-    elif args.xlsx:
-        seqs = scf.input_scaffold_xlsx( args.xlsx, args.xlsx_sheet, args.seq_color, args.seq_thickness )
+    if args.sep_input:
+        seqs = scf.input_scaffold_separete_tsv( args.sep_input, args.seq_color, args.seq_thickness )
+    elif args.xlsx or args.input:
+        seqs = scf.input_scaffold_integrated_file( args.xlsx, args.xlsx_sheet, args.input, args.seq_color, args.seq_thickness )
     if not seqs:
         print( f"Error: no seqs!", file=sys.stderr )
         exit()
-        
+
     size=common.Size( seqs, args )
 
     fig = plt.figure( figsize=size.figsize_inch )
@@ -75,22 +79,24 @@ def main():
             
     ##plot genes
     input_formats = [ args.gff3, args.gff_xlsx, args.gb ]
-    func_plot_genes = [ genes.plot_genes_from_gff, genes.plot_genes_from_gff_excel, genes.plot_genes_from_gb ]
+    func_plot_genes = [ genes.plot_genes_from_gff, genes.plot_genes_from_gff_excel, genes.plot_genes_from_gb ]    
     flag = False
+    gene_legend = genes.Feature_color_legend( args )
     for files, func_plot in zip( input_formats, func_plot_genes ):
         for fn in files:
-            flag = func_plot( seqs, ax, size, fn, args ) or flag
+            flag = func_plot( seqs, ax, size, fn, args, gene_legend ) or flag
+    gene_legend.output( fig )
     genes.output_genes_parameters( args, flag )
 
     ## plot highlight
     flag = False
     for fn in args.highlight:
-        flag = highlight.plot_highlight( seqs, ax, size, fn, args.h_alpha, args.h_thickness, 0 ) or flag
+        flag = highlight.plot_highlight( seqs, ax, size, fn, args.h_alpha, args.h_thickness, args.gene_thickness ) or flag
     highlight.output_parameters( flag, args.h_alpha, args.h_thickness )
 
     flag = False
     for fn in args.sp_highlight:
-        flag = highlight.plot_highlight( seqs, ax, size, fn, args.sp_h_alpha, args.h_thickness, 1 ) or flag
+        flag = highlight.plot_highlight( seqs, ax, size, fn, args.sp_h_alpha, args.h_thickness, 0 ) or flag
     highlight.output_parameters4sp( flag, args.sp_h_alpha )
 
     
@@ -105,7 +111,8 @@ def main():
     pdf_file = args.out + '.pdf'
     with PdfPages(pdf_file) as pp:
         if est_left_space < 0.5:
-            fig.subplots_adjust(left=est_left_space, right=0.95, bottom=0.05, top=0.95)
+            top_margin = 0.98 - gene_legend.nrow * 0.05
+            fig.subplots_adjust(left=est_left_space, right=0.95, bottom=0.05, top=top_margin)
             bbox = None
         else:
             print("Note: sequence name is long or font size is large → switched to auto-estimated margin", file=sys.stderr)
