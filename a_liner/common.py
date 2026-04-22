@@ -121,7 +121,7 @@ def get_args( argv=None ):
 
     
     # Version info
-    parser.add_argument( '-v', '--version', action='version', version='%(prog)s v.1.0.0', default=True )
+    parser.add_argument( '-v', '--version', action='version', version='%(prog)s v.1.1.0', default=True )
 
     if argv is None:
         return parser.parse_args()

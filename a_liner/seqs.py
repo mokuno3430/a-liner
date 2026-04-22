@@ -155,6 +155,18 @@ def _load_files(xlsx, sheet_name, tsv):
         if os.path.getsize( tsv ) == 0 :
             print(f"Error: {tsv} is empty.", file=sys.stderr)
         df = pd.read_csv(tsv, sep="\t")
+
+    input_file = xlsx if xlsx else tsv
+    required_cols = ["n", "ID", "start", "end", "strand", "name"]
+    missing_cols = [col for col in required_cols if col not in df.columns]
+
+    if missing_cols:
+        print(
+            f"Error: {input_file} is missing required columns: {', '.join(missing_cols)}.\n"
+            f"Expected columns are: {', '.join(required_cols)}.",
+            file=sys.stderr
+        )
+        sys.exit(1)
     return df
 
     
