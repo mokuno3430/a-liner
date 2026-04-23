@@ -1,8 +1,7 @@
 #!/bin/sh
 
 prefix=ostrich-emu_sex-chromosomes
-a-liner -i seq_info/lyla_emu-chrW.txt seq_info/lyla_emu-chrZ.txt \
-        seq_info/lyla_ostrich-chrZ.txt seq_info/lyla_ostrich-chrW.txt \
+a-liner -i seq_info/sequence_config.txt \
         --seq_thickness 0.5 --seq_color '#3b2a2a' \
         --figure_size 6 2.8 \
         --scale both --tick_width 5000000 \
