@@ -1,0 +1,4 @@
+Shiga toxon	Stx/Shiga toxin	#e92528
+phage related genes	phage/host nuclease inhibitor/cell division inhibitor/replication protein	#2369cb
+IS	transposase	#b0b9bf
+integrase	integrase	#f4a822
