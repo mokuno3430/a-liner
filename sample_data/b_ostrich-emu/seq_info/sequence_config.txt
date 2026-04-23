@@ -1,5 +1,5 @@
 n	ID	start	end	strand	name
 0	NC_088130.1	1	71775622	-	emu chr. W
 1	NC_088132.1	1	85985397	-	emu chr. Z
-2	NC_090981.1	1	70392303	-	ostrich chr. W
-3	NC_090982.1	1	89934196	-	ostrich chr. Z
+2	NC_090982.1	1	89934196	-	ostrich chr. Z
+3	NC_090981.1	1	70392303	-	ostrich chr. W
