@@ -62,7 +62,7 @@ This command generates a PDF file (`Stx-phage_loci.pdf`) visualizing:
 - gene annotations
 - user-specified highlighted regions on sequence tracks
 
-<img src="docs/images/2_figure1b.png" width="400">
+<img src="docs/images/2_figure1b.png" width="600">
 
 ### Example 2: Ostrich–emu chromosomes (chromosome-scale comparison)
 
@@ -78,7 +78,7 @@ This command generates a PDF file (`ostrich-emu_sex-chromosomes.pdf`) showing:
 - scatter-plots of quantitative features (e.g., estimated copy number)
 - user-specified highlighted regions on sequence tracks and scatter-plot backgrounds
 
-<img src="docs/images/3_figure1c.png" width="400">
+<img src="docs/images/3_figure1c.png" width="600">
 
 ## Options
 ### General options
