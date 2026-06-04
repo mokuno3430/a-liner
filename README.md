@@ -46,7 +46,11 @@ conda install "python>=3.8" matplotlib numpy pandas "biopython>=1.80" bcbio-gff 
 
 ## Sample Data
 This repository includes two example datasets demonstrating different use cases of a-liner.  
-Each example directory contains a `runme.sh` script that reproduces the figure shown in the paper.
+Each example directory contains a `runme.sh` script that reproduces the figure shown in the paper.  
+
+Additional examples are available in the supplementary datasets:  
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19695796.svg)](https://doi.org/10.5281/zenodo.19695796)
+
 
 ### Example 1: Bacterial Stx phages (local-scale comparison)
 
