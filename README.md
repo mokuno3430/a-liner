@@ -49,8 +49,7 @@ This repository includes two example datasets demonstrating different use cases 
 Each example directory contains a `runme.sh` script that reproduces the figure shown in the paper.  
 
 Additional examples are available in the supplementary datasets:  
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.19695796.svg)](https://doi.org/10.5281/zenodo.19695796)
-
+[![DOI](docs/images/zenodo.19695796.svg)](https://doi.org/10.5281/zenodo.19695796)
 
 ### Example 1: Bacterial Stx phages (local-scale comparison)
 
