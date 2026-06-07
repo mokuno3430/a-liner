@@ -403,7 +403,7 @@ from a_liner.common import get_args
 args = get_args([
     "-i", "input.txt",
     "--gff3", "E.coli_K-12_MG1655.gff3",
-    "--color_legend", "colors.txt",
+    "--feature_color_map", "colors.txt",
     "--feature", "CDS"
 ])
 
