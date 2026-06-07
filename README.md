@@ -64,6 +64,7 @@ This command generates a PDF file (`Stx-phage_loci.pdf`) visualizing:
 <p align="center">
 <img src="docs/images/2_figure1b.png" width="600">
 </p>
+
 ### Example 2: Ostrich–emu chromosomes (chromosome-scale comparison)
 
 This example demonstrates chromosome-scale alignment visualization between ostrich and emu sex chromosomes.
