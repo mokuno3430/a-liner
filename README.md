@@ -423,7 +423,10 @@ This will run a-liner with the same behavior as the command-line interface (CLI)
 - This approach is useful for automation and reproducible workflows.
   
 ## Citation
-Please cite the tool as follows until the formal publication becomes available:
+Please cite the tool as follows:
 
-> Okuno M. A-liner: linear alignment visualizer for genome comparisons.  
-> Available at: https://github.com/mokuno3430/a-liner
+Okuno M, Yamamoto T, Ogura Y, Itoh T. A-liner: linear alignment visualizer for genome comparisons.  
+*Bioinformatics*. 2026;btag408.  
+https://doi.org/10.1093/bioinformatics/btag408.
+
+PMID: 42348220 (https://pubmed.ncbi.nlm.nih.gov/42348220/).
