@@ -211,7 +211,8 @@ class RNA:
             self.strand = "."
         #if re.compile( "tRNA" ).search( type_ ):
             #return
-        if re.compile( "RNA" ).search( type_ ):
+        #if re.compile( "RNA" ).search( type_ ):
+        if type_ == "mRNA" :
             self.start = start
             self.end = end
             self.strand = strand
